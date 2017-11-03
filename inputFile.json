@@ -1,0 +1,24 @@
+﻿ {
+     "documents": [
+         {
+             "id": "1",
+             "text": "This document is in English."
+         },
+         {
+             "id": "2",
+             "text": "Este documento está en inglés."
+         },
+         {
+             "id": "3",
+             "text": "Ce document est en anglais."
+         },
+         {
+             "id": "4",
+             "text": "本文件为英文"
+         },                
+         {
+             "id": "5",
+             "text": "Этот документ находится на английском языке."
+         }
+     ]
+ }
