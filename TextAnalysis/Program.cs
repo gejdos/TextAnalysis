@@ -7,37 +7,45 @@ namespace TextAnalysis
 {
     class Program
     {
-               
+
+        private ITextAnalyticsAPI client;
+
         public static void Main(string[] args)
         {
-            ITextAnalyticsAPI​ client​ = new TextAnalyticsAPI();
-            client.AzureRegion​ = AzureRegions.Westus;
-            client.SubscriptionKey = "5cc94376d64945528093ba3a25f4f042";
+            string detectString;
+            string detectSentiment;
+            string language;
+
+            Program program = new Program();
+
+            program.client​ = new TextAnalyticsAPI();
+            program.client.AzureRegion​ = AzureRegions.Westus;
+            program.client.SubscriptionKey = "5cc94376d64945528093ba3a25f4f042";
 
             while (true)
             {
                 // Language Detection
                 Console.WriteLine("-----------------------------------------------------------------------------------------------\nDetect language for text:");
-                string detectString = Console.ReadLine();
+                detectString = Console.ReadLine();
 
-                detectLanguage(client​, detectString);
+                program.detectLanguage(detectString);
 
 
                 // Sentiment Score
                 Console.WriteLine("Detect sentiment score for text:");
-                string detectSentiment = Console.ReadLine();
+                detectSentiment = Console.ReadLine();
                 Console.WriteLine("Enter language code for inserted text (e.g. en):");
-                string language = Console.ReadLine();
+                language = Console.ReadLine();
 
-                returnSentiment(client​, detectSentiment, language);
+                program.returnSentiment(detectSentiment, language);
             }
 
         }
 
-        public static void detectLanguage(ITextAnalyticsAPI​ cl, string userInput)
+        private void detectLanguage(string userInput)
         {
 
-            LanguageBatchResult language = cl.DetectLanguage(new BatchInput(new List<Input>{new Input("1", userInput)}));
+            LanguageBatchResult language = client.DetectLanguage(new BatchInput(new List<Input>{new Input("1", userInput)}));
            
             foreach (LanguageBatchResultItem document in language.Documents)
             {
@@ -46,9 +54,9 @@ namespace TextAnalysis
 
         }
 
-        public static void returnSentiment(ITextAnalyticsAPI​ cl, string userInput, string lang)
+        private void returnSentiment(string userInput, string lang)
         {
-            SentimentBatchResult sentiment = cl.Sentiment(new MultiLanguageBatchInput(new List<MultiLanguageInput>(){new MultiLanguageInput(lang, "0", userInput)}));
+            SentimentBatchResult sentiment = client.Sentiment(new MultiLanguageBatchInput(new List<MultiLanguageInput>(){new MultiLanguageInput(lang, "0", userInput)}));
 
             foreach (var document in sentiment.Documents)
             {
