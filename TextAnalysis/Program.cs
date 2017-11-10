@@ -28,7 +28,7 @@ namespace TextAnalysis
                 Console.WriteLine("-----------------------------------------------------------------------------------------------\nDetect language for text:");
                 detectString = Console.ReadLine();
 
-                program.detectLanguage(detectString);
+                program.DetectLanguage(detectString);
 
 
                 // Sentiment Score
@@ -37,12 +37,12 @@ namespace TextAnalysis
                 Console.WriteLine("Enter language code for inserted text (e.g. en):");
                 language = Console.ReadLine();
 
-                program.returnSentiment(detectSentiment, language);
+                program.ReturnSentiment(detectSentiment, language);
             }
 
         }
 
-        private void detectLanguage(string userInput)
+        private void DetectLanguage(string userInput)
         {
 
             LanguageBatchResult language = client.DetectLanguage(new BatchInput(new List<Input>{new Input("1", userInput)}));
@@ -54,7 +54,7 @@ namespace TextAnalysis
 
         }
 
-        private void returnSentiment(string userInput, string lang)
+        private void ReturnSentiment(string userInput, string lang)
         {
             SentimentBatchResult sentiment = client.Sentiment(new MultiLanguageBatchInput(new List<MultiLanguageInput>(){new MultiLanguageInput(lang, "0", userInput)}));
 
